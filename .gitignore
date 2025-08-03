@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.env           # we’ll save secrets here
+# Streamlit & cache
+.streamlit/
+# Large model files
+models/*.gguf
+# macOS
+.DS_Store
+

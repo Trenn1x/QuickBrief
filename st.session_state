@@ -1,0 +1,29 @@
+import streamlit as st, pathlib
+from core.summarizer import synthesize
+from core.notion_push import push as push_notion
+from core.trello_push import push as push_trello
+
+st.set_page_config(page_title="QuickBrief", page_icon="📝")
+st.title("QuickBrief 📝")
+
+notes = st.text_area("Paste discovery-call notes")
+
+# 1 Generate
+if st.button("Generate Brief") and notes.strip():
+    st.session_state["brief_md"] = synthesize(notes)
+
+# 2 Show preview if it exists
+if "brief_md" in st.session_state:
+    md = st.session_state["brief_md"]
+    st.markdown(md)
+
+    # download
+    pdf = pathlib.Path("brief.md"); pdf.write_text(md)
+    st.download_button("Download Markdown", pdf.read_bytes(), file_name="brief.md")
+
+    # 3 Push
+    if st.button("Send to Notion & Trello"):
+        push_notion(md)
+        # push_trello(md)      # uncomment after Trello creds are set
+        st.success("Pushed to Notion!")
+
