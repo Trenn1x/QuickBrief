@@ -1,0 +1,7 @@
+streamlit>=1.35.0
+requests>=2.32.0
+notion-client>=2.2.1      # tiny wrapper; keeps install simple
+# ↓ local-only LLM (already on disk, so no PyPI package)
+# llama-cpp-python optional for CPU fallback
+llama-cpp-python>=0.2.72
+python-dotenv>=1.0.1       # nice-to-have for env files
